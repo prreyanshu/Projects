@@ -1,44 +1,99 @@
-const inputbox=document.getElementById("input-box");
-const listcontainer=document.getElementById("list-cointer");
-
-function addtask(){
-    if(inputbox.value === ''){
-        alert("you must put a statement");
-    }
-    else{
-        let li = document.createElement("li");
-        li.innerHTML=inputbox.value;
-        listcontainer.appendChild(li);
-        let span = document.createElement("span");
-        span.innerHTML="\u00d7";
-        li.appendChild(span);
-    }
-    inputbox.value=""; 
-    savedata()  
+*{
+    margin: 0;
+    padding: 0;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    box-sizing: border-box;
 }
-listcontainer.addEventListener("click",function(e){
-    if(e.target.tagName==="LI"){
-        e.target.classList.toggle("Checked");
-        savedata()
-    }
-     else if(e.target.tagName==="SPAN"){
-        e.target.parentElement.remove();
-        savedata()   
-    }
-},false);
-
-inputbox.addEventListener("keypress",function(e){
-    if(e.key==="Enter"){
-        addtask();
-        savedata()
-    }
-});
-
-function savedata(){
-    localStorage.setItem("data",listcontainer.innerHTML)
+.container{
+    width: 100%;
+    min-height: 100vh;
+    background:linear-gradient(135deg,#153677,#4e085f);
+    padding: 10px;
 }
+.todo-app{
+    width: 100%;
+    max-width: 550px;
+    background: #fff;
+    margin: 100px auto 20px;
+    padding:40px;
+    border-radius:10px;
 
-function showtask(){
-    listcontainer.innerHTML=localStorage.getItem("data")
 }
-showtask();
+.todo-app h2{
+    color: #002765;
+    display: flex;
+    align-items: center;
+    margin-bottom:20px ;
+}
+.row{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background:#edeef0;
+    border-radius: 30px;
+    padding-left: 30px;
+    margin-bottom: 25px;
+}
+input{
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 10px;
+    font-weight: 15px;
+}
+button{
+    border: none;
+    outline: none;
+    padding: 16px 50px;
+    background-color: #ff5945;
+    color: #fff;
+    font-size:16px;
+    cursor: pointer;
+    border-radius: 40px;
+}
+ul li{
+    list-style: none;
+    font-size: 17px;
+    padding: 12px 8px 12px 50px;
+    user-select: none;
+    cursor: pointer;
+    position: relative;
+
+}
+ul li::before{
+  content: '';
+  position: absolute;
+  height: 28px;  
+  width:28px;
+  border-radius: 50%;
+  background-image:url(/html/pfp&img/radio-button.png);
+  background-size: cover;
+  background-position: center;
+  top: 12px;
+  left: 8px;
+}
+ul li.Checked{
+    color: #555;
+    text-decoration: line-through;
+
+}
+ul li.Checked::before{
+    background-image: url(/html/pfp&img/checked.png);
+}
+ul li span{
+    position:absolute;
+    right:0;
+    top:5px;
+    width: 40px;
+    height: 40px;
+    font-size: 32px;
+    color: #555;
+    line-height: 40px;
+    text-align: center;
+    border-radius: 50%;
+
+}
+ul li span:hover{
+    background:#edeef0;
+}
